@@ -5,13 +5,18 @@ package controlador;
 
 import java.util.ArrayList;
 
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 
 import dao.CentroDAO;
+import dao.DepartamentoDAO;
 import modelo.Centro;
+import modelo.Departamento;
 import vista.DialogoAnadirCentro;
 import vista.VentanaMostrarCentros;
+import vista.VentanaMostrarDepartamentos;
 import vista.VentanaPpal;
+import vista.DialogoAnadirDepartamentos;
 
 /**
  * @author David
@@ -26,6 +31,11 @@ public class Controlador {
 	
 	// Objetos DAO o CRUD de la base de datos
 	private CentroDAO centroDAO;
+	private DepartamentoDAO departamentoDAO;
+	private VentanaMostrarDepartamentos ventanaMostrarDepartamentos;
+	private DialogoAnadirDepartamentos dialogoAnadirDepartamentos;
+	private JComponent dialogoAnadirDepartamento;
+
 
 	
 	
@@ -34,15 +44,19 @@ public class Controlador {
 		ventanaPpal = new VentanaPpal();
 		ventanaMostrarCentros = new VentanaMostrarCentros();
 		dialogoAnadirCentro = new DialogoAnadirCentro();
+		ventanaMostrarDepartamentos=new VentanaMostrarDepartamentos();
+		dialogoAnadirDepartamentos=new DialogoAnadirDepartamentos();
 		
 		// Dando acceso al controlador desde las vistas
 		ventanaPpal.setControlador(this);
 		ventanaMostrarCentros.setControlador(this);
 		dialogoAnadirCentro.setControlador(this);
+		ventanaMostrarDepartamentos.setControlador(this);
 
 		
 		// Creamos los objetos DAO
 		centroDAO = new CentroDAO();
+		departamentoDAO =new DepartamentoDAO(); //creo el campo y lo instancio
 	}
 	
 	
@@ -79,5 +93,34 @@ public class Controlador {
 		}
 	}
 	
+	public void mostrarListarDepartamentos() {
+		ArrayList<Departamento> lista = departamentoDAO.obtenerDepartamentos();
+		ventanaMostrarDepartamentos.setListaDepartamentos(lista);
+		ventanaMostrarDepartamentos.setVisible(true);
+	}
+	
+	
+	public void insertaDepartamento(Departamento departamento) {
+		
+		int resultado= departamentoDAO.insertarDepartamento(departamento);
+		try {
+			
+		
+		if (resultado ==0) {
+			JOptionPane.showMessageDialog(dialogoAnadirDepartamento, "Error. no se ha podido insertar.");
+		} else {
+			JOptionPane.showMessageDialog(dialogoAnadirDepartamento, "Inserción del departamento correcta");
+			dialogoAnadirDepartamento.setVisible(false);
+		}
+
+	} catch (Exception e) {
+		
+		e.printStackTrace();
+	}
+
+
+
+	
+	}	
 	
 }

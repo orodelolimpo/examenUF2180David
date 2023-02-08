@@ -20,6 +20,11 @@ public class ConexionBD {
 	
 	private Connection conexion=null;
 	
+	//2.1  //create user Pepe identified by '123';
+	//asigno permisos:
+	//grant SELECT,insert,DELETE, UPDATE on empresa.* to Pepe;
+	//flush privileges;
+	
 	
 	public Connection getConexion() {
 		if (conexion!=null) {
@@ -31,7 +36,7 @@ public class ConexionBD {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			
 			conexion = DriverManager.getConnection(url, usuario, contrasena);
-			System.out.println("Conexion a bilioteca correcta");
+			System.out.println("Conexion a empresa correcta");
 		} catch (ClassNotFoundException e) {
 			System.out.println("Driver no registrado");
 		} catch (SQLException e) {
@@ -45,7 +50,7 @@ public class ConexionBD {
 			conexion.close();
 			conexion=null;
 		} catch (SQLException e) {
-			System.out.println("Erorr cerrrando la conexion "+ e.getMessage());
+			System.out.println("Error cerrrando la conexion "+ e.getMessage());
 		}
 	}
 
