@@ -43,7 +43,7 @@ public class VentanaPpal extends JFrame {
 		JButton btnNewButton = new JButton("Ver Centros");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controlador.mostrarListarCentros();
+				controlador.mostrarListarCentros();//función en VentanaMostrarDe`p
 			}
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));

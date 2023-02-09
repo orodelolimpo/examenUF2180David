@@ -58,7 +58,7 @@ public class DepartamentoDAO {
     }
 
 
-    public int insertarDepartamento(Departamento departamento) {
+    public int insertarDepartamento(Departamento departamento) throws SQLException {//al solucionar el error de añadir la excepción throw 
 
 		Connection con = conexion.getConexion();
 		PreparedStatement consulta = null;
@@ -71,7 +71,7 @@ public class DepartamentoDAO {
 			
 			consulta.setInt(1, departamento.getCod_departamento() );
 			consulta.setInt(2, departamento.getCod_centro());
-			consulta.setString(3, departamento.getTipo_dir());
+			consulta.setString(3, departamento.getTipo_dir());//.substring(1));//he añadido substring para que coja sólo la primera lentra)
 			consulta.setInt(4, departamento.getPresupuesto());
 			consulta.setString(5, departamento.getNombre());
 			
@@ -79,7 +79,9 @@ public class DepartamentoDAO {
 
 		} catch (SQLException e) {
 			System.out.println("Error al realizar la inserción del departamento: "
-		        +e.getMessage());
+		        +e.getMessage());//en este caso me falta lo siguiente:
+			throw e;//esto es controlar una excepción la vuelvo a lanzar.  me tira error
+			
 		} finally {
 			try {
 				consulta.close();
@@ -93,6 +95,7 @@ public class DepartamentoDAO {
 		return resultado;
     }
     
+    //hay que poner un try----catch porque sino no podríamos poner finally y si no lo podríamos hacer el try...catch para poder liberar los recursosm por eso si o si hay que poner ese catch.  nosotroa ademas aquí 
     
     
 }

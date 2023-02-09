@@ -117,6 +117,7 @@ public class VentanaMostrarDepartamentos extends JFrame {
 		for (Departamento departamento : lista) {
 			Object fila [] = {
 					departamento.getCod_departamento(),departamento.getCod_centro(), 					departamento.getTipo_dir(),departamento.getPresupuesto(),departamento.getNombre()
+					//aqui podría hacero dept.getPresupuesto()*1000, //y continúo pero quito (en miles de E
 			};
 			modelo.addRow(fila);
 		}

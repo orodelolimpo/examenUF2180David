@@ -38,7 +38,11 @@ public class Departamento {
 		this.cod_centro = cod_centro;
 	}
 	public String getTipo_dir() {
-		return tipo_dir;
+		
+		if (this.tipo_dir.equals("P")) {
+			return "En propied";
+		}
+		return "En funciones";
 	}
 	public void setTipo_dir(String tipo_dir) {
 		this.tipo_dir = tipo_dir;

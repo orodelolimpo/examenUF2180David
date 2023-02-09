@@ -3,9 +3,9 @@
  */
 package controlador;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 
 import dao.CentroDAO;
@@ -13,10 +13,10 @@ import dao.DepartamentoDAO;
 import modelo.Centro;
 import modelo.Departamento;
 import vista.DialogoAnadirCentro;
+import vista.DialogoAnadirDepartamentos;
 import vista.VentanaMostrarCentros;
 import vista.VentanaMostrarDepartamentos;
 import vista.VentanaPpal;
-import vista.DialogoAnadirDepartamentos;
 
 /**
  * @author David
@@ -28,23 +28,22 @@ public class Controlador {
 	private VentanaPpal ventanaPpal;
 	private VentanaMostrarCentros ventanaMostrarCentros;
 	private DialogoAnadirCentro dialogoAnadirCentro;
+	private VentanaMostrarDepartamentos ventanaMostrarDepartamentos;
+	private DialogoAnadirDepartamentos dialogoAnadirDepartamentos;//hecho pero se hay que instacinar y poner controlador que se me olvidó
+	private DialogoAnadirCentro dialogoMostrarDepartamentos;
+
 	
 	// Objetos DAO o CRUD de la base de datos
 	private CentroDAO centroDAO;
-	private DepartamentoDAO departamentoDAO;
-	private VentanaMostrarDepartamentos ventanaMostrarDepartamentos;
-	private DialogoAnadirDepartamentos dialogoAnadirDepartamentos;
-	private JComponent dialogoAnadirDepartamento;
-
-
+	private DepartamentoDAO departamentoDAO; 
 	
 	
-	public Controlador() {
+	public Controlador() { //controla las excepciones que las recoge la vista
 		// Creamos las ventanas de la aplicaci�n
 		ventanaPpal = new VentanaPpal();
 		ventanaMostrarCentros = new VentanaMostrarCentros();
 		dialogoAnadirCentro = new DialogoAnadirCentro();
-		ventanaMostrarDepartamentos=new VentanaMostrarDepartamentos();
+		ventanaMostrarDepartamentos=new VentanaMostrarDepartamentos();//instancio la ventana
 		dialogoAnadirDepartamentos=new DialogoAnadirDepartamentos();
 		
 		// Dando acceso al controlador desde las vistas
@@ -52,6 +51,8 @@ public class Controlador {
 		ventanaMostrarCentros.setControlador(this);
 		dialogoAnadirCentro.setControlador(this);
 		ventanaMostrarDepartamentos.setControlador(this);
+		dialogoMostrarDepartamentos.setControlador(this);
+		dialogoAnadirDepartamentos.setControlador(this);  //y ahora me voy al dialogoAnadir Dep de la ventana
 
 		
 		// Creamos los objetos DAO
@@ -97,30 +98,14 @@ public class Controlador {
 		ArrayList<Departamento> lista = departamentoDAO.obtenerDepartamentos();
 		ventanaMostrarDepartamentos.setListaDepartamentos(lista);
 		ventanaMostrarDepartamentos.setVisible(true);
+		
 	}
 	
 	
-	public void insertaDepartamento(Departamento departamento) {
+	public void insertaDepartamento(Departamento departamento) throws SQLException {//me vengo de la ventana y hago esto
 		
-		int resultado= departamentoDAO.insertarDepartamento(departamento);
-		try {
-			
+		int resultado= departamentoDAO.insertarDepartamento(departamento);//me lanza una excepción pero mejor 						ponerlo en la vista para solucionar me dice que rode o añadir declaración de throw (a la 						vista y que lo haga desde alli)
 		
-		if (resultado ==0) {
-			JOptionPane.showMessageDialog(dialogoAnadirDepartamento, "Error. no se ha podido insertar.");
-		} else {
-			JOptionPane.showMessageDialog(dialogoAnadirDepartamento, "Inserción del departamento correcta");
-			dialogoAnadirDepartamento.setVisible(false);
-		}
-
-	} catch (Exception e) {
-		
-		e.printStackTrace();
-	}
-
-
-
 	
 	}	
-	
 }
